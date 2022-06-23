@@ -10,7 +10,25 @@
     <p>🎈</p>
 
     <script>
-      // Your code here
+      // Select balloon elem
+      const balloon = document.getElementsByTagName("p")[0];
+      // Default size
+      balloon.style.fontSize = "10px";
+
+      document.addEventListener("keydown", e => changeSize(e, balloon));
+
+      function changeSize(event, elem) {
+        if (event.key === "ArrowUp") {
+          // Extract just number
+          let currSize = elem.style.fontSize.match(/\d+/g)[0];
+          elem.style.fontSize = (Number(currSize) + 10) + "px";
+        }
+        if (event.key === "ArrowDown") {
+          // Extract just number
+          let currSize = elem.style.fontSize.match(/\d+/g)[0];
+          elem.style.fontSize = (currSize - 10) + "px";
+        }
+      }
     </script>
   </body>
 </html>
