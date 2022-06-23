@@ -18,6 +18,7 @@
       document.addEventListener("keydown", e => changeSize(e, balloon));
 
       function changeSize(event, elem) {
+        event.preventDefault();
         if (event.key === "ArrowUp") {
           // Extract just number
           let currSize = elem.style.fontSize.match(/\d+/g)[0];
