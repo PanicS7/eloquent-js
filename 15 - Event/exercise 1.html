@@ -15,18 +15,27 @@
       // Default size
       balloon.style.fontSize = "10px";
 
-      document.addEventListener("keydown", e => changeSize(e, balloon));
+      document.addEventListener("keydown", eventHelper);
+
+      function eventHelper(e) {
+        changeSize(e, balloon);
+      }
 
       function changeSize(event, elem) {
         event.preventDefault();
+
+        // Extract just number
+        let currSize = elem.style.fontSize.match(/\d+/g)[0];
+
+        if (currSize >= 300) {
+          elem.textContent = "💥";
+          document.removeEventListener("keydown", eventHelper);
+        }
+
         if (event.key === "ArrowUp") {
-          // Extract just number
-          let currSize = elem.style.fontSize.match(/\d+/g)[0];
           elem.style.fontSize = (Number(currSize) + 10) + "px";
         }
         if (event.key === "ArrowDown") {
-          // Extract just number
-          let currSize = elem.style.fontSize.match(/\d+/g)[0];
           elem.style.fontSize = (currSize - 10) + "px";
         }
       }
