@@ -31,11 +31,14 @@
           elem.textContent = "💥";
           document.removeEventListener("keydown", eventHelper);
         }
-
         if (event.key === "ArrowUp") {
           elem.style.fontSize = (Number(currSize) + 10) + "px";
         }
         if (event.key === "ArrowDown") {
+          if (currSize <= 10) {
+            alert("Can't shrink anymore!!");
+            return null;
+          }
           elem.style.fontSize = (currSize - 10) + "px";
         }
       }
