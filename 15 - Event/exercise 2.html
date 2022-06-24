@@ -19,7 +19,50 @@
 </head>
 <body>
   <script>
-    // Your code here.
+    // Create single dot
+    const Dots = [];
+    function createDot() {
+      const mouseTrail = document.createElement("div");
+      document.body.appendChild(mouseTrail);
+      mouseTrail.className = "trail";  
+      mouseTrail.style.top = 0;  
+      mouseTrail.style.left = 0;  
+      Dots.push({
+        name: mouseTrail,
+        top: 0,
+        left: 0
+      });
+    }
+
+    // Add multiply dot
+    const dotsCount = 5;
+    for (let i = 0; i < dotsCount; i++) {
+      createDot();
+    }
+    
+    // Draw dot per each mouse move
+    window.addEventListener("mousemove", e => {drawDot(Dots)});
+
+    function drawDot(dots) {
+      let x = event.clientX;
+      let y = event.clientY;
+      
+      dots.map((dot, index, array) => {
+        var nextDot = array[index + 1] || array[0];
+        
+        // position dot to screen
+        dot.name.style.top = y + "px";
+        dot.name.style.left = x + "px";
+
+        // Save dot positon - update array
+        dot.top = y;
+        dot.left = x;
+
+        // Position next dot away from first dot
+        x += (nextDot.left - dot.left) * 0.6;
+        y += (nextDot.top - dot.top) * 0.6;
+      })
+    }
   </script>
 </body>
 </html>
