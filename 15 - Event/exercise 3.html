@@ -14,7 +14,50 @@
   </div>
   <script>
     function asTabs(node) {
-      // Your code here.
+      const tabs = node.querySelectorAll("[data-tabname]");
+      const btnContainer = document.createElement("div");
+
+      [...tabs].map((tab, index, arr) => {
+        const btn = document.createElement("button");
+        btn.textContent = tab.textContent;
+
+        if (index === 0) {
+          tab.style.display = "block";
+          btn.style.backgroundColor = "gray";
+        }
+        else {
+          tab.style.display = "none";
+          btn.style.backgroundColor = "white";
+        }
+        btnContainer.appendChild(btn);
+        
+        btn.addEventListener("click", e => handleClick(e, btnContainer, arr));
+        
+        // Add container to top
+        node.insertBefore(btnContainer, tabs[0])
+      })
+
+      function handleClick(event, btns, tabs) {
+          let btnList = btns.childNodes;
+          // Reset background to all tabs
+          [...btnList].map(btn => {
+            btn.style.backgroundColor = "white";
+          })
+          // Set background to selected tab
+          event.target.style.backgroundColor = "gray";
+
+          // Show selected tab element
+          let elemName = event.target.textContent;
+          [...tabs].map(tab => {
+            let name = tab.textContent;
+            if (name === elemName) {
+              tab.style.display = "block";
+            }
+            else {
+              tab.style.display = "none";
+            }
+          });
+        }
     }
     asTabs(document.querySelector(".tab"));
   </script>
